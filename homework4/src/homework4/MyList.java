@@ -58,7 +58,6 @@ public class MyList {
 	}
 
 	public void remove(int index) {
-
 		String[] newTest = new String[test.length];// 102
 		for (int i = 0; i < test.length; i++) {
 			newTest[i] = test[i]; // elemanları yeni arraye taşıdım.
