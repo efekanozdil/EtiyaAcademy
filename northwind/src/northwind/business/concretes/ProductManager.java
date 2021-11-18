@@ -3,6 +3,11 @@ package northwind.business.concretes;
 import java.util.List;
 
 import northwind.business.abstracts.ProductService;
+import northwind.core.utilities.results.DataResult;
+import northwind.core.utilities.results.ErrorResult;
+import northwind.core.utilities.results.Result;
+import northwind.core.utilities.results.SuccessDataResult;
+import northwind.core.utilities.results.SuccessResult;
 import northwind.dataAccess.abstracts.ProductRepository;
 import northwind.entities.concretes.Product;
 
@@ -15,16 +20,17 @@ public class ProductManager implements ProductService {
 	}
 
 	@Override
-	public List<Product> getAll() {
+	public DataResult<List<Product>> getAll() {
 
-		return this.productRepository.getAll();
+		return new SuccessDataResult<List<Product>>(this.productRepository.getAll());
 	}
 
 	@Override
-	public void add(Product product) {
+	public Result add(Product product) {
 
-		if (productNameChecker(product)) {
-			System.out.println("Sistemde mevcut, eklenemedi." + product.getProductName());
+		if (productNameChecker(product)){
+		//	System.out.println("Sistemde mevcut, eklenemedi." + product.getProductName());
+			return new ErrorResult("Ürün eklenemedi");
 		} else if (categoryChecker(product)) {
 			System.out.println("5'den fazla ekleme yapılamaz.");
 		} else if (unitPriceChecker(product)) {
@@ -32,20 +38,21 @@ public class ProductManager implements ProductService {
 		} else if (categoryId3Checker(product)) {
 			System.out.println("Kategori 3'te  ürün fiyatı 10'dan düşük olamaz.");
 		} else {
-			this.productRepository.add(product);
+			productRepository.add(product);
+			return new SuccessResult("Ürün eklendi");
 		}
 
 	}
 
-	private boolean productNameChecker(Product product) {
+	private Result productNameChecker(Product product) {
 
 		for (Product p1 : productRepository.getAll()) {
 			if (p1.getProductName().equals(product.getProductName())) {
-				return true;
+				return new ErrorResult();
 			}
 
 		}
-		return false;
+		return new SuccessResult();
 	}
 
 	private boolean categoryChecker(Product product) {

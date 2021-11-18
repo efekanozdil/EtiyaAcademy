@@ -2,11 +2,13 @@ package northwind.business.abstracts;
 
 import java.util.List;
 
+import northwind.core.utilities.results.DataResult;
+import northwind.core.utilities.results.Result;
 import northwind.entities.concretes.Product;
 
 public interface ProductService {
-	List<Product> getAll();
-	void add(Product product);
+	DataResult<List<Product>> getAll();
+	Result add(Product product);
 	
 	
 }
