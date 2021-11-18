@@ -30,6 +30,7 @@ public class BrandDao implements BrandRepository {
 	public void update(int id,Brand entity) {
 		brands.set(id, entity);
 		
+		
 	}
 
 	@Override

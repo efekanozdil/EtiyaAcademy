@@ -11,11 +11,10 @@ import ReCapProject.core.utilities.results.SuccessResult;
 import ReCapProject.dataAccess.abstracts.BrandRepository;
 import ReCapProject.entities.concretes.Brand;
 
-
 public class BrandManager implements BrandService {
-	
+
 	private BrandRepository brandRepository;
-	
+
 	public BrandManager(BrandRepository brandrepository) {
 		this.brandRepository = brandrepository;
 	}
@@ -23,22 +22,22 @@ public class BrandManager implements BrandService {
 	@Override
 	public Result add(Brand brand) {
 		this.brandRepository.add(brand);
-		return new SuccessResult("Marka eklendi"+brand.getName());
+		return new SuccessResult("Marka eklendi" + brand.getName());
 	}
 
 	@Override
 	public Result remove(Brand brand) {
 		this.brandRepository.remove(brand);
-		return new SuccessResult("Marka silindi"+brand.getName());
+		return new SuccessResult("Marka silindi" + brand.getName());
 	}
 
 	@Override
-	public Result update(int id,Brand brand) {
-		int index=0;
+	public Result update(int id, Brand brand) {
+		int index = 0;
 		for (Brand elements : this.brandRepository.getAll()) {
-			if(id == elements.getId()) {
-				index =this.brandRepository.getAll().indexOf(brand);
-				this.brandRepository.update(id, brand);
+			if (id == elements.getId()) {
+				index = this.brandRepository.getAll().indexOf(elements);
+				this.brandRepository.update(index, brand);
 				return new SuccessResult("Renk Güncellendi");
 			}
 		}

@@ -30,7 +30,6 @@ public class ColorDao implements ColorRepository{
 	public void update(int id,Color entity) {
 		
 		colors.set(id, entity);
-		
 	}
 
 	@Override
